@@ -1,0 +1,88 @@
+<html>
+    <head>
+    <title>Customers</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    </head>
+    
+    <body>
+    <h1>Customers</h1>
+    
+    [ <a href="index.html">Home</a> |  <a href="Cars.html">Cars</a> | <a href="Recalls.html">Recalls </a> | <a href="CarsRecalls.html">Vehicles and Recalls</a> |  <a href="Customers.html"> Customers </a> | <a href="CustomersVehicles.html"> Customers' Vehicles</a> |<a href="VehicleRecallStatus.html"> Customers' Vehicle Recall Status </a> ]
+    <div id="browse" style="display: block">
+    <p><strong>Browse Customers</strong></p>
+    <table border="1" cellpadding="5">
+      <tr>
+        <th><a href="#">New</a></th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Phone Number</th>
+        <th>Email</th>
+      </tr>
+      <tr>
+        <td><a href="#">Edit</a></td>
+        <td >Dawn</td>
+        <td align="right" >Arrington</td>
+        <td>333-567-1590</td>
+        <td>arringtd@oregonstate.edu</td>
+      </tr>
+      <tr>
+        <td><a href="#">Edit</a></td>
+        <td>Ashley</td>
+        <td align="right" >Abel</td>
+        <td >254-247-0021</td>
+        <td>abelas@oregonstate.edu</td>
+      </tr>
+      <tr>
+        <td><a href="#">Edit</a></td>
+        <td>Hannah</td>
+        <td align="right" >Montana</td>
+        <td>555-236-1845</td>
+        <td>montanh@oregonstate.edu</td>
+      </tr>
+    </table>
+    <p>&nbsp;</p>
+    </div> <!-- browse -->
+    <div id="insert" style="display: block">
+        <form id="addCustomer">
+            <legend><strong>Add a Customer</strong></legend>
+              <fieldset class="fields">
+                <label> First Name </label> <input type="text" name="firstName">
+                <label> Last Name </label> <input type="text" name="lastName">
+                <label> Phone Number </label> <input type="text" name="phoneNumber">
+                <label> Email </label> <input type="text" name="email">
+              </fieldset>
+              <input class="btn" type="submit" id="addCustomer" value="Add a Customer">
+              <input class="btn" type="button" value="cancel">
+        </form> <!--add a new customer-->
+    </div><!-- insert -->
+    
+    <p>&nbsp;</p>
+    <div id="update" style="display: block">
+      <form id="updateCustomer">
+          <legend><strong>Update Customer</strong></legend>
+              <fieldset class="fields">
+                <label> First Name </label> <input type="text" value="Dawn" name="firstName">
+                <label> Last Name </label> <input type="text"  name="lastName" value="Arrington">
+                <label> Phone Number </label> <input type="text" name="language" value="333-567-1590">
+                <label> Email </label> <input type="text" name="email" value="arringtd@oregonstate.edu">
+        </fieldset>
+        <input class="btn" type="submit" id="updateCustomer" value="Update Customer">
+              <input class="btn" type="button" value="cancel" >
+      </form> 
+    </div><!-- update -->
+
+    <p>&nbsp;</p>
+    <div id="search" style="display: block">
+        <form id="searchCustomer">
+            <legend><strong>Search Customer</strong></legend>
+                <fieldset class="fields">
+                  <label> First Name </label> <input type="text" name="firstName">
+                  <label> Last Name </label> <input type="text" name="lastName">
+          </fieldset>
+          <input class="btn" type="submit" id="searchCustomer" value="Search Customer">
+                <input class="btn" type="button" value="cancel" >
+        </form> 
+      </div><!-- search -->
+
+    </body>
+    </html>

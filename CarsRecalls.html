@@ -1,0 +1,80 @@
+<html>
+    <head>
+    <title>Vehicles and Recalls</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    </head>
+    
+    <body>
+    <h1>Vehicles and Recalls</h1>
+    
+    [ <a href="index.html">Home</a> |  <a href="Cars.html">Cars</a> | <a href="Recalls.html">Recalls </a> | <a href="CarsRecalls.html">Vehicles and Recalls</a> |  <a href="Customers.html"> Customers </a> | <a href="CustomersVehicles.html"> Customers' Vehicles</a> |<a href="VehicleRecallStatus.html"> Customers' Vehicle Recall Status </a> ]
+    <div id="browse" style="display: block">
+    <p><strong>Browse Vehicles and Recalls</strong></p>
+    <table border="1" cellpadding="5">
+      <tr>
+        <th><a href="#">New</a></th>
+        <th>Car Make</th>
+        <th>Car Model</th>
+        <th>Model Year</th>
+        <th>Recall</th>
+      </tr>
+      <tr>
+        <th></th>
+        <th>Buick</th>
+        <th>Regal</th>
+        <th>2019</th>
+        <th>Brakes Software</th>
+      </tr>
+      <tr>
+        <th></th>
+        <th>Cadillac</th>
+        <th>CT6</th>
+        <th>2018</th>
+        <th>Seatbelt</th>
+      </tr>
+      <tr>
+        <th></th>
+        <th>Mazda</th>
+        <th>Mazda3</th>
+        <th>2017</th>
+        <th>Windshield Wipers</th>
+      </tr>
+    </table>
+    <p>&nbsp;</p>
+    </div> <!-- browse -->
+    <div id="add" style="display: block">
+        <form id="assignRecall">
+            <legend><strong>Add Recalls to Vehicles</strong></legend>
+              <fieldset class="fields">
+                <label for "carMake"> Vehicle Make </label> 
+                <select name="carMake" id="carMake">
+                    <option value="Cadillac">Cadillac</option>
+                    <option value="Buick">Buick</option>
+                    <option value="Mazda">Mazda</option>
+                </select>
+                <label> Vehicle Model </label> 
+                <select name="carModel" id="carModel">
+                    <option value="CT6">CT6</option>
+                    <option value="Regal">Regal</option>
+                    <option value="Mazda3">Mazda3</option>
+                </select>
+                <label> Model Year </label> 
+                <select name="carYear" id="carYear">
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                    <option value="2017">2017</option>
+                </select>
+                <label> Recall Type </label> 
+                <select name="recalls" id="recalls">
+                    <option value="Brakes Software">Brakes Software</option>
+                    <option value="Seatbelt">Seatbelt</option>
+                    <option value="Windshield Wipers">Windshield Wipers</option>
+                </select>
+              </fieldset>
+              <input class="btn" type="submit" id="assignRecall" value="Assign Recall">
+              <input class="btn" type="button" value="cancel">
+        </form> <!--assign recalls-->
+    </div><!-- insert -->
+
+    </body>
+    </html>

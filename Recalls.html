@@ -1,0 +1,54 @@
+<html>
+    <head>
+    <title>Recalls</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    </head>
+    
+    <body>
+    <h1>Recalls</h1>
+    
+    [ <a href="index.html">Home</a> |  <a href="Cars.html">Cars</a> | <a href="Recalls.html">Recalls </a> | <a href="CarsRecalls.html">Vehicles and Recalls</a> |  <a href="Customers.html"> Customers </a> | <a href="CustomersVehicles.html"> Customers' Vehicles</a> |<a href="VehicleRecallStatus.html"> Customers' Vehicle Recall Status </a> ]
+    <div id="browse" style="display: block">
+    <p><strong>Browse Recalls</strong></p>
+    <table border="1" cellpadding="5">
+      <tr>
+        <th><a href="#">New</a></th>
+        <th>ID</th>
+        <th>Recall Type</th>
+        <th>Date Issued</th>
+      </tr>
+      <tr>
+        <td></td>
+        <td align="right" >1</td>
+        <td >Brakes Software</td>
+        <td>2022-07-18</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td align="right" >2</td>
+        <td>Seatbelt</td>
+        <td >2019-09-26</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td align="right" >3</td>
+        <td>Windshield Wipers</td>
+        <td>2019-04-03</td>
+      </tr>
+    </table>
+    <p>&nbsp;</p>
+    </div> <!-- browse -->
+    <div id="insert" style="display: block">
+        <form id="addRecall">
+            <legend><strong>Add a Recall</strong></legend>
+              <fieldset class="fields">
+                <label> Recall Type </label> <input type="text" name="recallType">
+                <label> Date Issued </label> <input type="text" name="dateIssued">
+              </fieldset>
+              <input class="btn" type="submit" id="addRecall" value="Add a Recall">
+              <input class="btn" type="button" value="cancel">
+        </form> <!--add new car-->
+    </div><!-- insert -->
+    
+    </body>
+    </html>

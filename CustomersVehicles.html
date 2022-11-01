@@ -1,0 +1,114 @@
+<html>
+    <head>
+    <title>Customers' Vehicles</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    </head>
+    
+    <body>
+    <h1>Customers' Vehicles</h1>
+    
+    [ <a href="index.html">Home</a> |  <a href="Cars.html">Cars</a> | <a href="Recalls.html">Recalls </a> | <a href="CarsRecalls.html">Vehicles and Recalls</a> |  <a href="Customers.html"> Customers </a> | <a href="CustomersVehicles.html"> Customers' Vehicles</a> |<a href="VehicleRecallStatus.html"> Customers' Vehicle Recall Status </a> ]
+    <div id="browse" style="display: block">
+    <p><strong>Browse Customers' Vehicles</strong></p>
+    <table border="1" cellpadding="5">
+      <tr>
+        <th><a href="#">New</a></th>
+        <th></th>
+        <th>Customer First Name</th>
+        <th>Customer Last Name</th>
+        <th>Customer Phone Number</th>
+        <th>Car Make</th>
+        <th>Car Model</th>
+        <th>Model Year</th>
+        <th>VIN</th>
+        <th>Sale Date</th>
+        <th>Last Service Date</th>
+      </tr>
+      <tr>
+        <td><a href="#">Edit</a></td>
+        <td><a href="#">Delete</a></td>
+        <th>Dawn</th>
+        <th>Arrington</th>
+        <th>333-567-1590</th>
+        <th>Buick</th>
+        <th>Regal</th>
+        <th>2019</th>
+        <td>1LNHM86S32Y623854</td>
+        <td>2019-10-23</td>
+        <td>2022-01-25</td>
+      </tr>
+      <tr>
+        <td><a href="#">Edit</a></td>
+        <td><a href="#">Delete</a></td>
+        <th>Ashley</th>
+        <th>Abel</th>
+        <th>254-247-0021</th>
+        <th>Mazda</th>
+        <th>Mazda3</th>
+        <th>2017</th>
+        <td >5NPE34AF2FH047906</td>
+        <td>2017-07-23</td>
+        <td>2022-10-09</td>
+      </tr>
+      <tr>
+        <td><a href="#">Edit</a></td>
+        <td><a href="#">Delete</a></td>
+        <th>Hannah</th>
+        <th>Montana</th>
+        <th>555-236-1845</th>
+        <th>Cadillac</th>
+        <th>CT6</th>
+        <th>2018</th>
+        <td>1FDZA90W1LVA48400</td>
+        <td>2018-12-24</td>
+        <td>2020-08-23</td>
+      </tr>
+    </table>
+    <p>&nbsp;</p>
+    </div> <!-- browse -->
+    <div id="insert" style="display: block">
+        <form id="addCustomerVehicle">
+            <legend><strong>Add a Vehicle</strong></legend>
+              <fieldset class="fields">
+                <label> Customer First Name </label> <input type="text" name="firstName">
+                <label> Customer Last Name </label> <input type="text" name="lastName">
+                <label> Customer Phone Number </label> <input type="text" name="phoneNumber">
+                <label> Car Make </label> <input type="text" name="carMake">
+                <label> Car Model </label> <input type="text" name="carModel">
+                <label> Model Year </label> <input type="text" name="carYear">
+                <label> VIN </label> <input type="text" name="vinNumber">
+                <label> Sale Date </label> <input type="text" name="saleDate">
+                <label> Last Service Date </label> <input type="text" name="lastServiceDate">
+              </fieldset>
+              <input class="btn" type="submit" id="addVehicle" value="Add a Vehicle">
+              <input class="btn" type="button" value="cancel">
+        </form> <!--add new vehicle-->
+    </div><!-- insert -->
+    
+    <p>&nbsp;</p>
+    <div id="update" style="display: block">
+      <form id="updateCustomerVehicle">
+          <legend><strong>Update Vehicle</strong></legend>
+              <fieldset class="fields">
+                <label> Last Service Date </label> <input type="text" value="2022-01-25" name="lastServiceDate">
+
+        </fieldset>
+        <input class="btn" type="submit" id="updateCustomerVehicle" value="Save Update Vehicle">
+              <input class="btn" type="button" value="cancel" >
+      </form> 
+    </div><!-- update -->
+    <p>&nbsp;</p>
+    <div id="delete" style="display: block">
+      <form id="deleteCustomerVehicle">
+          <legend><strong>Delete Vehicle</strong></legend>
+              <fieldset class="fields">
+              <p>Are you sure you wish to delete the following?</p>
+                <label> VIN: </label> 1LNHM86S32Y623854
+                
+        </fieldset>
+        <input class="btn" type="submit" id="deleteCustomerVehicle" value="Delete Vehicle">
+              <input class="btn" type="button" value="cancel" >
+      </form> 
+    </div><!-- delete -->
+    </body>
+    </html>

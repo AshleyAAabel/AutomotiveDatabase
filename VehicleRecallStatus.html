@@ -1,0 +1,96 @@
+<html>
+    <head>
+    <title>Customers' Vehicle Recall Status</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    </head>
+    
+    <body>
+    <h1>Customers' Vehicle Recall Status</h1>
+    
+    [ <a href="index.html">Home</a> |  <a href="Cars.html">Cars</a> | <a href="Recalls.html">Recalls </a> | <a href="CarsRecalls.html">Vehicles and Recalls</a> |  <a href="Customers.html"> Customers </a> | <a href="CustomersVehicles.html"> Customers' Vehicles</a> |<a href="VehicleRecallStatus.html"> Customers' Vehicle Recall Status </a> ]
+    <div id="browse" style="display: block">
+    <p><strong>Browse Recall Status</strong></p>
+    <table border="1" cellpadding="5">
+      <tr>
+        <th><a href="#">New</a></th>
+        <th>Customer First Name</th>
+        <th>Customer Last Name</th>
+        <th>Car Maker</th>
+        <th>Car Model</th>
+        <th>Car Year</th>
+        <th>VIN</th>
+        <th>Recall</th>
+        <th>Fix Status</th>
+      </tr>
+      <tr>
+        <td><a href="#">Edit</a></td>
+        <th>Dawn</th>
+        <th>Arrington</th>
+        <th>Buick</th>
+        <th>Regal</th>
+        <th>2019</th>
+        <th>1LNHM86S32Y623854</th>
+        <th>Brakes Software</th>
+        <th>0</th>
+      </tr>
+      <tr>
+        <td><a href="#">Edit</a></td>
+        <th>Ashley</th>
+        <th>Abel</th>
+        <th>Mazda</th>
+        <th>Mazda3</th>
+        <th>2017</th>
+        <th>5NPE34AF2FH047906</th>
+        <th>Windshield Wipers</th>
+        <th>1</th>
+      </tr>
+      <tr>
+        <td><a href="#">Edit</a></td>
+        <th>Hannah</th>
+        <th>Montana</th>
+        <th>Cadillac</th>
+        <th>CT6</th>
+        <th>2018</th>
+        <th>1FDZA90W1LVA48400</th>
+        <th>Seatbelt</th>
+        <th>1</th>
+      </tr>
+    </table>
+    <p>&nbsp;</p>
+    </div> <!-- browse -->
+    <div id="add" style="display: block">
+        <form id="addRecall">
+            <legend><strong>Add a Recall to Customer Vehicle</strong></legend>
+              <fieldset class="fields">
+                <label> VIN </label> 
+                <select name="vinNumber" id="vinNumber">
+                    <option value="suv">1LNHM86S32Y623854</option>
+                    <option value="Sedan">5NPE34AF2FH047906</option>
+                    <option value="Sport">1FDZA90W1LVA48400</option>
+                </select>
+                <label> Recall Type </label> 
+                <select name="recalls" id="recalls">
+                    <option value="Brakes Software">Brakes Software</option>
+                    <option value="Seatbelt">Seatbelt</option>
+                    <option value="Windshield Wipers">Windshield Wipers</option>
+                </select>
+              </fieldset>
+              <input class="btn" type="submit" id="addRecall" value="Add a Recall">
+              <input class="btn" type="button" value="cancel">
+        </form> <!--add new car-->
+    </div><!-- insert -->
+    
+    <p>&nbsp;</p>
+    <div id="update" style="display: block">
+      <form id="updateRecallStatus">
+          <legend><strong>Update Fix Status of Recall</strong></legend>
+              <fieldset class="fields">
+                <label> Fixed? </label> <input type="text" value="0" name="recallStatus">
+        </fieldset>
+        <input class="btn" type="submit" id="updateRecallStatus" value="Update Recall Status">
+              <input class="btn" type="button" value="cancel" >
+      </form> 
+    </div><!-- update -->
+
+    </body>
+    </html>

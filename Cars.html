@@ -1,0 +1,55 @@
+<html>
+    <head>
+    <title>Cars</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    </head>
+    
+    <body>
+    <h1>Cars</h1>
+    
+    [ <a href="index.html">Home</a> |  <a href="Cars.html">Cars</a> | <a href="Recalls.html">Recalls </a> | <a href="CarsRecalls.html">Vehicles and Recalls</a> |  <a href="Customers.html"> Customers </a> | <a href="CustomersVehicles.html"> Customers' Vehicles</a> |<a href="VehicleRecallStatus.html"> Customers' Vehicle Recall Status </a> ]
+    <div id="browse" style="display: block">
+    <p><strong>Browse Cars</strong></p>
+    <table border="1" cellpadding="5">
+      <tr>
+        <th><a href="#">New</a></th>
+        <th>Car Make</th>
+        <th>Car Model</th>
+        <th>Model Year</th>
+      </tr>
+      <tr>
+        <td></td>
+        <td >Cadillac</td>
+        <td>CT6</td>
+        <td>2018</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Buick</td>
+        <td >Regal</td>
+        <td>2019</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Mazda</td>
+        <td>Mazda3</td>
+        <td>2017</td>
+      </tr>
+    </table>
+    <p>&nbsp;</p>
+    </div> <!-- browse -->
+    <div id="insert" style="display: block">
+        <form id="addCar">
+            <legend><strong>Add a Car</strong></legend>
+              <fieldset class="fields">
+                <label> Car Make </label> <input type="text" name="carMake">
+                <label> Car Model </label> <input type="text" name="carModel">
+                <label> Model Year </label> <input type="text" name="carYear">
+              </fieldset>
+              <input class="btn" type="submit" id="addCar" value="Add a Car">
+              <input class="btn" type="button" value="cancel">
+        </form> <!--add new car-->
+    </div><!-- insert -->
+    
+    </body>
+    </html>
