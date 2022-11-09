@@ -7,30 +7,38 @@
     <body>
     <h1>Cars</h1>
     
-    [ <a href="index.html">Home</a> |  <a href="Cars.html">Cars</a> | <a href="Recalls.html">Recalls </a> | <a href="CarsRecalls.html">Vehicles and Recalls</a> |  <a href="Customers.html"> Customers </a> | <a href="CustomersVehicles.html"> Customers' Vehicles</a> |<a href="VehicleRecallStatus.html"> Customers' Vehicle Recall Status </a> ]
+    [ <a href="index.html">Home</a> |  <a href="Cars.html">Cars</a> | <a href="Recalls.html">Recalls </a> | <a href="CarsRecalls.html">Cars and Recalls</a> |  <a href="Customers.html"> Customers </a> | <a href="CustomersVehicles.html"> Customers' Vehicles</a> |<a href="VehicleRecallStatus.html"> Customers' Vehicle Recall Status </a> ]
     <div id="browse" style="display: block">
     <p><strong>Browse Cars</strong></p>
     <table border="1" cellpadding="5">
       <tr>
         <th><a href="#">New</a></th>
+        <th></th>
+        <th>ID</th>
         <th>Car Make</th>
         <th>Car Model</th>
         <th>Model Year</th>
       </tr>
       <tr>
         <td></td>
+        <td><a href="#">Delete</a></td>
+        <td>1</td>
         <td >Cadillac</td>
         <td>CT6</td>
         <td>2018</td>
       </tr>
       <tr>
         <td></td>
+        <td><a href="#">Delete</a></td>
+        <td>2</td>
         <td>Buick</td>
         <td >Regal</td>
         <td>2019</td>
       </tr>
       <tr>
         <td></td>
+        <td><a href="#">Delete</a></td>
+        <td>3</td>
         <td>Mazda</td>
         <td>Mazda3</td>
         <td>2017</td>
@@ -51,5 +59,19 @@
         </form> <!--add new car-->
     </div><!-- insert -->
     
+    <p>&nbsp;</p>
+    <div id="delete" style="display: block">
+      <form id="deleteCars">
+          <legend><strong>Delete Vehicle</strong></legend>
+              <fieldset class="fields">
+              <p>Are you sure you wish to delete the following?</p>
+              <p> 2019 Buick Regal </p> 
+                
+        </fieldset>
+        <input class="btn" type="submit" id="deleteCustomerVehicle" value="Delete Vehicle">
+              <input class="btn" type="button" value="cancel" >
+      </form> 
+    </div><!-- delete -->
+
     </body>
     </html>

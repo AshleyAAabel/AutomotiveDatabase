@@ -1,0 +1,32 @@
+<html>
+<head>
+    <title>Cars</title>
+</head>
+<body>
+    <h1>Cars</h1>
+
+    <table border="1" cellpadding="5">
+    <thead>
+    <tr>
+        <th><a href="#">New</a></th>
+        <th></th>
+        <th>ID</th>
+        <th>Car Make</th>
+        <th>Car Model</th>
+        <th>Model Year</th>
+    </tr>
+    <tbody>
+    {% for car in cars %}
+    <tr>
+        <td></td>
+        <td><a href="#">Delete</a></td>
+        <td>{{car['carModelID']}}</td>
+        <td>{{car['carMake']}}</td>
+        <td>{{car['carModel']}}</td>
+        <td>{{car['carYear']}}</td>
+    </tr>
+    {% endfor %}
+    </table>
+
+</body>
+</html>

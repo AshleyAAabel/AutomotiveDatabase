@@ -7,7 +7,7 @@
     <body>
     <h1>Customers' Vehicle Recall Status</h1>
     
-    [ <a href="index.html">Home</a> |  <a href="Cars.html">Cars</a> | <a href="Recalls.html">Recalls </a> | <a href="CarsRecalls.html">Vehicles and Recalls</a> |  <a href="Customers.html"> Customers </a> | <a href="CustomersVehicles.html"> Customers' Vehicles</a> |<a href="VehicleRecallStatus.html"> Customers' Vehicle Recall Status </a> ]
+    [ <a href="index.html">Home</a> |  <a href="Cars.html">Cars</a> | <a href="Recalls.html">Recalls </a> | <a href="CarsRecalls.html">Cars and Recalls</a> |  <a href="Customers.html"> Customers </a> | <a href="CustomersVehicles.html"> Customers' Vehicles</a> |<a href="VehicleRecallStatus.html"> Customers' Vehicle Recall Status </a> ]
     <div id="browse" style="display: block">
     <p><strong>Browse Recall Status</strong></p>
     <table border="1" cellpadding="5">
@@ -31,7 +31,7 @@
         <th>2019</th>
         <th>1LNHM86S32Y623854</th>
         <th>Brakes Software</th>
-        <th>0</th>
+        <th>Not Fixed</th>
       </tr>
       <tr>
         <td><a href="#">Edit</a></td>
@@ -42,7 +42,7 @@
         <th>2017</th>
         <th>5NPE34AF2FH047906</th>
         <th>Windshield Wipers</th>
-        <th>1</th>
+        <th>Fixed</th>
       </tr>
       <tr>
         <td><a href="#">Edit</a></td>
@@ -53,7 +53,7 @@
         <th>2018</th>
         <th>1FDZA90W1LVA48400</th>
         <th>Seatbelt</th>
-        <th>1</th>
+        <th>Fixed</th>
       </tr>
     </table>
     <p>&nbsp;</p>
@@ -64,9 +64,9 @@
               <fieldset class="fields">
                 <label> VIN </label> 
                 <select name="vinNumber" id="vinNumber">
-                    <option value="suv">1LNHM86S32Y623854</option>
-                    <option value="Sedan">5NPE34AF2FH047906</option>
-                    <option value="Sport">1FDZA90W1LVA48400</option>
+                    <option value="car1">1LNHM86S32Y623854</option>
+                    <option value="car2">5NPE34AF2FH047906</option>
+                    <option value="car3">1FDZA90W1LVA48400</option>
                 </select>
                 <label> Recall Type </label> 
                 <select name="recalls" id="recalls">
@@ -85,7 +85,12 @@
       <form id="updateRecallStatus">
           <legend><strong>Update Fix Status of Recall</strong></legend>
               <fieldset class="fields">
-                <label> Fixed? </label> <input type="text" value="0" name="recallStatus">
+                <label> Fixed? </label> 
+                <select name="updateRecallStatus id="updateRecallStatus>
+                    <option value="Not Fixed">Not Fixed</option>
+                    <option value="Fixed">Fixed</option>
+
+                </select>
         </fieldset>
         <input class="btn" type="submit" id="updateRecallStatus" value="Update Recall Status">
               <input class="btn" type="button" value="cancel" >
