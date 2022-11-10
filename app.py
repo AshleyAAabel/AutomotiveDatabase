@@ -1,45 +1,57 @@
 
-from flask import Flask, render_template, json
+from flask import Flask, render_template, request, redirect, json
 import os
 import database.db_connector as db
 import MySQLdb
+import mysql.connector
+
 
 # Configuration
 
 app = Flask(__name__)
+# app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
+# app.config['MYSQL_USER'] = 'cs340_arringtd'
+# app.config['MYSQL_PASSWORD'] = '4451' #last 4 of onid
+# app.config['MYSQL_DB'] = 'cs340_arringtd'
+# app.config['MYSQL_CURSORCLASS'] = "DictCursor"
 
 # Routes 
 
 @app.route('/')
 def root():
 
-    return "Pawtomotive Home Page"
+    return render_template("index.j2")
 
-@app.route('/cars')
+@app.route('/cars', methods=["POST", "GET", "DELETE"])
 def cars():
-    
-    # Write the query and save it to a variable
-    query = "SELECT * FROM Cars;"
 
-    # The way the interface between MySQL and Flask works is by using an
-    # object called a cursor. Think of it as the object that acts as the
-    # person typing commands directly into the MySQL command line and
-    # reading them back to you when it gets results
-    cursor = db.execute_query(db_connection=db_connection, query=query)
+    if request.method == "GET":
+        query = "SELECT * FROM Cars;"
+        cursor = db.execute_query(db_connection=db_connection, query=query)
+        results = cursor.fetchall()
+        return render_template("cars.j2", cars=results)
 
+    if request.method == "POST":
+        if request.form.get("addCar"):
+            carMake = request.form["carMake"]
+            carModel = request.form["carModel"]
+            carYear = request.form["carYear"]
+            # if carMake != '' and carModel != '' and carYear != '':
+            query = "INSERT INTO Cars (carMake, carModel, carYear) VALUES (%s, %s, %s);"
+            cursor = db_connection.cursor()
+            cursor.execute(query, (carMake, carModel, carYear,))
+            db_connection.commit()
 
-    # The cursor.fetchall() function tells the cursor object to return all
-    # the results from the previously executed
-    results = cursor.fetchall()
+        return redirect("/cars")
 
-    # Sends the results back to the web browser.
-    return render_template("cars.j2", cars=results)
+@app.route('/delete_cars/<int:carModelID>')
+def delete_cars(carModelID):
+    query = "DELETE FROM Cars WHERE carModelID = '%s';"
+    cursor = db_connection.cursor()
+    cursor.execute(query, (carModelID,))
+    db_connection.commit()
 
-    # The json.dumps() function simply converts the dictionary that was
-    # returned by the fetchall() call to JSON so we can display it on the
-    # page.
-    # results = json.dumps(cursor.fetchall())
-    # return results
+    return redirect("/cars")
 
 # Listener
 
