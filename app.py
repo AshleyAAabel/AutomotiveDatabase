@@ -9,6 +9,7 @@ import mysql.connector
 # Configuration
 
 app = Flask(__name__)
+db_connection = db.connect_to_database()
 # app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
 # app.config['MYSQL_USER'] = 'cs340_arringtd'
 # app.config['MYSQL_PASSWORD'] = '4451' #last 4 of onid
@@ -36,16 +37,17 @@ def cars():
             carMake = request.form["carMake"]
             carModel = request.form["carModel"]
             carYear = request.form["carYear"]
-            # if carMake != '' and carModel != '' and carYear != '':
-            query = "INSERT INTO Cars (carMake, carModel, carYear) VALUES (%s, %s, %s);"
-            cursor = db_connection.cursor()
-            cursor.execute(query, (carMake, carModel, carYear,))
-            db_connection.commit()
+            if carMake != '' and carModel != '' and carYear != '':
+                query = "INSERT INTO Cars (carMake, carModel, carYear) VALUES (%s, %s, %s);"
+                cursor = db_connection.cursor()
+                cursor.execute(query, (carMake, carModel, carYear,))
+                db_connection.commit()
 
         return redirect("/cars")
 
 @app.route('/delete_cars/<int:carModelID>')
 def delete_cars(carModelID):
+
     query = "DELETE FROM Cars WHERE carModelID = '%s';"
     cursor = db_connection.cursor()
     cursor.execute(query, (carModelID,))
@@ -57,7 +59,7 @@ def delete_cars(carModelID):
 
 if __name__ == "__main__":
 
-    db_connection = db.connect_to_database()
+
 
     port = int(os.environ.get('PORT', 6767)) 
     #                                 ^^^^
