@@ -10,11 +10,11 @@ import mysql.connector
 
 app = Flask(__name__)
 db_connection = db.connect_to_database()
-# app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
-# app.config['MYSQL_USER'] = 'cs340_arringtd'
-# app.config['MYSQL_PASSWORD'] = '4451' #last 4 of onid
-# app.config['MYSQL_DB'] = 'cs340_arringtd'
-# app.config['MYSQL_CURSORCLASS'] = "DictCursor"
+app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
+app.config['MYSQL_USER'] = 'cs340_arringtd'
+app.config['MYSQL_PASSWORD'] = '4451' #last 4 of onid
+app.config['MYSQL_DB'] = 'cs340_arringtd'
+app.config['MYSQL_CURSORCLASS'] = "DictCursor"
 
 # Routes 
 
