@@ -5,10 +5,10 @@ import database.db_connector as db
 import MySQLdb
 import mysql.connector
 
-
 # Configuration
 
 app = Flask(__name__)
+
 db_connection = db.connect_to_database()
 app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
 app.config['MYSQL_USER'] = 'cs340_arringtd'
