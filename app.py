@@ -127,7 +127,7 @@ def recalls():
         return render_template("recalls.j2", recalls=results)
 
     if request.method == "POST":
-        if request.form.get("addRecalls"):
+        if request.form.get("addRecall"):
             recallType = request.form["recallType"]
             dateIssued = request.form["dateIssued"]
             if recallType != '' and dateIssued != '':
