@@ -198,6 +198,8 @@ def edit_customers_vehicles(customerVehicleID):
                 cursor.execute(query, (lastServiceDate, customerVehicleID,))
                 # db_connection.commit()
                 mysql.connection.commit()
+        # if request.form.get("cancelEditCustomersVehicle"):
+        #     return redirect("/customers_vehicles")
         return redirect("/customers_vehicles")
 
 @app.route('/delete_customers_vehicle/<int:customerVehicleID>')
