@@ -1,0 +1,35 @@
+<html>
+<head>
+    <title>Recalls</title>
+</head>
+<body>
+    <h1>Recalls</h1>
+    [ <a href="/">Home</a> |  <a href="/cars">Cars</a> | <a href="/recalls">Recalls</a> | <a href="/customers">Customers</a> | <a href="/customers_vehicles">Customers' Vehicles</a>]
+    <table border="1" cellpadding="5">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Recall Type</th>
+        <th>Date Issued</th>
+    </tr>
+    <tbody>
+    {% for recall in recalls %}
+    <tr>
+        <td>{{recall['recallID']}}</td>
+        <td>{{recall['recallType']}}</td>
+        <td>{{recall['dateIssued']}}</td>
+    </tr>
+    {% endfor %}
+    </table>
+
+    <p></p>
+    <form method="post" id="addRecall" action ="/recalls">
+        <legend><strong>Add a Recall</strong></legend>
+            <fieldset class="fields">
+                <label> Recall Type </label> <input type="text" name="recallType">
+                <label> Date Issued </label> <input type="text" name="dateIssued">
+            </fieldset>
+            <input class="btn" type="submit" id="addRecall" name="addRecall" value="Add a Recall">
+    </form> <!--add new recall-->
+</body>
+</html>
