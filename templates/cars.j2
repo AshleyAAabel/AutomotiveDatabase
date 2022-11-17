@@ -4,7 +4,7 @@
 </head>
 <body>
     <h1>Cars</h1>
-    [ <a href="/">Home</a> |  <a href="/cars">Cars</a> | <a href="/recalls">Recalls</a> | <a href="/customers">Customers</a> | <a href="/customers_vehicles">Customers' Vehicles</a>]
+    [ <a href="/">Home</a> |  <a href="/cars">Cars</a> | <a href="/recalls">Recalls</a> | <a href="/cars_recalls">Cars and Recalls<a/> | <a href="/customers">Customers</a> | <a href="/customers_vehicles">Customers' Vehicles</a> | <a href="/vehicle_recall_status">Vehicle Recall Status</a>]
     <table border="1" cellpadding="5">
     <thead>
     <tr>
@@ -22,6 +22,7 @@
         <td>{{car['carMake']}}</td>
         <td>{{car['carModel']}}</td>
         <td>{{car['carYear']}}</td>
+        <td><a href="view_cars_recalls/{{car.carModelID}}">View all recalls</a></td>
     </tr>
     {% endfor %}
     </table>

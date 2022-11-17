@@ -1,0 +1,30 @@
+<html>
+<head>
+    <title>Recalls Status on Vehicle</title>
+</head>
+<body>
+    <h1>Recall Status on Vehicle</h1>
+    [ <a href="/">Home</a> |  <a href="/cars">Cars</a> | <a href="/recalls">Recalls</a> | <a href="/cars_recalls">Cars and Recalls<a/> | <a href="/customers">Customers</a> | <a href="/customers_vehicles">Customers' Vehicles</a> | <a href="/vehicle_recall_status">Vehicle Recall Status</a>]
+    <table border="1" cellpadding="5">
+    <thead>
+    <tr>
+        <th>Vehicle</th>
+        <th>Recall</th>
+        <th>Fix Status</th>
+    </tr>
+    <tbody>
+    {% for recallStat in recallStats %}
+    <tr>
+        <td>{{recallStat['vinNumber']}}</td>
+        <td>{{recallStat['recallType']}} {{recallStat['dateIssued']}}</td>
+        {% if recallStat['recallStatus'] == 0 %}
+            <td>Not Fixed</td>
+        {% elif recallStat['recallStatus'] == 1 %}
+            <td>Fixed</td>
+        {% endif %}
+        <td><a href="update_vehicle_recall_status/{{recallStat.customerVehicleID}}/{{recallStat.recallID}}">Update Status</a></td>
+    </tr>
+    {% endfor %}
+    </table>
+</body>
+</html>

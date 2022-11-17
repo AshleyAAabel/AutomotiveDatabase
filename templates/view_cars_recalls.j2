@@ -1,0 +1,23 @@
+<html>
+<head>
+    <title>Recalls for Vehicle</title>
+</head>
+<body>
+    <h1>Recalls for Vehicle</h1>
+    [ <a href="/">Home</a> |  <a href="/cars">Cars</a> | <a href="/recalls">Recalls</a> | <a href="/cars_recalls">Cars and Recalls<a/> | <a href="/customers">Customers</a> | <a href="/customers_vehicles">Customers' Vehicles</a> | <a href="/vehicle_recall_status">Vehicle Recall Status</a>]
+    <table border="1" cellpadding="5">
+    <thead>
+    <tr>
+        <th>Car</th>
+        <th>Recall</th>
+    </tr>
+    <tbody>
+    {% for viewRecall in viewRecalls %}
+    <tr>
+        <td>{{viewRecall['carMake']}} {{viewRecall['carModel']}} {{viewRecall['carYear']}}</td>
+        <td>{{viewRecall['recallType']}} {{viewRecall['DateIssued']}}</td>
+    </tr>
+    {% endfor %}
+    </table>
+</body>
+</html>

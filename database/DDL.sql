@@ -131,7 +131,7 @@ INSERT INTO VehicleRecallStatus(customerVehicleID, recallID, recallStatus)
 VALUES
 ((SELECT customerVehicleID FROM CustomersVehicles WHERE vinNumber ='1LNHM86S32Y623854'), (SELECT recallID FROM Recalls WHERE recallType = 'Brakes Software' AND dateIssued = '2022-07-18'), 0),
 ((SELECT customerVehicleID FROM CustomersVehicles WHERE vinNumber = '5NPE34AF2FH047906'), (SELECT recallID FROM Recalls WHERE recallType = 'Windshield Wipers' and dateIssued = '2019-04-03'), 1),
-((SELECT customerVehicleID FROM CustomersVehicles WHERE vinNumber = '1FDZA90W1LVA48400'), (SELECT recallID FROM Recalls WHERE recallType = 'Seatbelt' AND dateIssued = '2019-09-26'), 1)
+((SELECT customerVehicleID FROM CustomersVehicles WHERE vinNumber = '1FDZA90W1LVA48400'), (SELECT recallID FROM Recalls WHERE recallType = 'Seatbelt' AND dateIssued = '2019-09-26'), 1);
 
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;

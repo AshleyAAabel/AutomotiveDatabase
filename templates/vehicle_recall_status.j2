@@ -1,0 +1,56 @@
+<html>
+<head>
+    <title>Vehicle Recall Status</title>
+</head>
+<body>
+    <h1>Vehicle Recall Status</h1>
+    [ <a href="/">Home</a> |  <a href="/cars">Cars</a> | <a href="/recalls">Recalls</a> | <a href="/cars_recalls">Cars and Recalls<a/> | <a href="/customers">Customers</a> | <a href="/customers_vehicles">Customers' Vehicles</a> | <a href="/vehicle_recall_status">Vehicle Recall Status</a>]
+    <table border="1" cellpadding="5">
+    <thead>
+    <tr>
+        <th>Customer Vehicle</th>
+        <th>Recall</th>
+        <th>Fix Status</>
+    </tr>
+    <tbody>
+    {% for recallStat in recallStats %}
+    <tr>
+        <td>TEST</td>
+        <td>{{recallStat['vinNumber']}}</td>
+        <td>{{recallStat['recallType']}} {{recallStat['dateIssued']}}</td>
+        {% if recallStat['recallStatus'] == 0 %}
+            <td>Not Fixed</td>
+        {% elif recallStat['recallStatus'] == 1 %}
+            <td>Fixed</td>
+        {% endif %}
+        <td><a href="update_vehicle_recall_status/{{recallStat.customerVehicleID}}/{{recallStat.recallID}}">Update Status</a></td>
+    </tr>
+    {% endfor %}
+    </table>
+
+      <p></p>
+    <form method="post" id="addCustomerRecall" action ="/vehicle_recall_status">
+        <legend><strong>Link a Car to a Recall</strong></legend>
+            <fieldset class="fields">
+                <label for "carInfo"> Vehicle </label> 
+                    <select name="customerVehicleID" id="customerVehicleID">
+                        {% for car in cars %}
+                        <option value="{{car['customerVehicleID']}}">{{car['vinNumber']}}</option>
+                        {% endfor %}
+                    </select>
+                <label for "recallInfo"> Recall </label> 
+                    <select name="recallID" id="recallID">
+                        {% for recall in recalls %}
+                        <option value="{{recall['recallID']}}">{{recall['recallType']}} {{recall['dateIssued']}}</option>
+                        {% endfor %}
+                    </select>
+                <label for "statusInfo"> Fix Status </label> 
+                    <select name="recallStatus" id="recallStatus">
+                        <option value="0">Not Fixed</option>
+                        <option value="1">Fixed</option>
+                    </select>
+            </fieldset>
+            <input class="btn" type="submit" id="addCarRecall" name="addCarRecall" value="Link a car to recall">
+    </form> <!--Link Customer Vehicle to recall-->
+</body>
+</html>
