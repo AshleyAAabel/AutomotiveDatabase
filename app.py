@@ -1,5 +1,5 @@
 
-from flask import Flask, render_template, request, redirect, json
+from flask import Flask, render_template, request, redirect, json, flash
 from waitress import serve
 import os
 import database.db_connector as db
@@ -9,6 +9,7 @@ from flask_mysqldb import MySQL
 # Configuration
 
 app = Flask(__name__)
+app.secret_key = "secret key"
 
 # db_connection = db.connect_to_database()
 app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
@@ -108,13 +109,16 @@ def cars():
 @app.route('/delete_cars/<int:carModelID>')
 def delete_cars(carModelID):
 
-    query = "DELETE FROM Cars WHERE carModelID = '%s';"
-    # cursor = db_connection.cursor()
-    cursor = mysql.connection.cursor()
-    cursor.execute(query, (carModelID,))
-    # db_connection.commit()
-    mysql.connection.commit()
-
+    try:
+        query = "DELETE FROM Cars WHERE carModelID = '%s';"
+        # cursor = db_connection.cursor()
+        cursor = mysql.connection.cursor()
+        cursor.execute(query, (carModelID,))
+        # db_connection.commit()
+        mysql.connection.commit()
+    except:
+        flash("Cannot delete car owned by Customer")
+        return render_template("flash_temp.j2")
     return redirect("/cars")
 
 @app.route('/recalls', methods=["POST", "GET"])
@@ -244,6 +248,9 @@ def cars_recalls():
             carModelID = request.form["carModelID"]
             recallID = request.form["recallID"]
             query = "INSERT INTO CarsRecalls (carModelID, recallID) VALUES (%s, %s)"
+            """vrsquery = "INSERT INTO VehicleRecallStatus (customerVehicleID, recallID) SELECT CustomersVehicles.customerVehicleID, Recalls.recallID FROM CustomersVehicles INNER JOIN Cars ON CustomersVehicles.carModelID = Cars.carModelID INNER JOIN CarsRecalls ON Cars.carModelID = CarsRecalls.carModelID INNER JOIN Recalls ON CarsRecalls.recallID = Recalls.recallID WHERE Cars.carModelID = %s AND Recalls.recallID = %s"
+            vrscursor = mysql.connection.cursor()
+            vrscursor.execute(vrsquery,(carModelID, recallID,))"""
             cursor = mysql.connection.cursor()
             cursor.execute(query, (carModelID, recallID,))
             mysql.connection.commit()
@@ -295,7 +302,7 @@ def vehicle_recall_status():
             customerVehicleID = request.form["customerVehicleID"]
             recallID = request.form["recallID"]
             recallStatus = int(request.form["recallStatus"])
-            query = "INSERT INTO VehicleRecallStatus (customerVehiclelID, recallID, recallStatus) VALUES (%s, %s, %s)"
+            query = "INSERT INTO VehicleRecallStatus VALUES (%s, %s, %s)"
             cursor = mysql.connection.cursor()
             cursor.execute(query, (customerVehicleID, recallID, recallStatus))
             mysql.connection.commit()

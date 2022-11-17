@@ -15,7 +15,6 @@
     <tbody>
     {% for recallStat in recallStats %}
     <tr>
-        <td>TEST</td>
         <td>{{recallStat['vinNumber']}}</td>
         <td>{{recallStat['recallType']}} {{recallStat['dateIssued']}}</td>
         {% if recallStat['recallStatus'] == 0 %}
