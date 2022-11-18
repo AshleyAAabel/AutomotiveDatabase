@@ -27,6 +27,9 @@
     </table>
 
     <p></p>
+    {% if error %}
+        <div class="error-msg">{{error}}</div>
+    {% endif %}
     <form method="post" id="addCar" action ="/cars">
         <legend><strong>Add a Car</strong></legend>
             <fieldset class="fields">

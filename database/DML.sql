@@ -8,7 +8,7 @@ SELECT carModel FROM Cars;
 SELECT carYear FROM Cars;
 
 
---CARS TABLE GENERAL QUERIES(READ AND CREATE)
+--CARS TABLE GENERAL QUERIES(READ, CREATE, and DELETE)
 
 --Display all cars in Cars table
 SELECT * FROM Cars;
@@ -16,6 +16,9 @@ SELECT * FROM Cars;
 --Insert new car into Cars table
 INSERT INTO Cars(carMake, carModel, carYear)
 VALUES(:carMakeInput, :carModelInput, :carYearInput);
+
+--Delete car from Cars table
+DELETE FROM Cars WHERE carModelID = :carModelIDInput;
 
 
 --CUSTOMERS TABLE GENERAL QUERIES(READ, CREATE, AND UPDATE)
@@ -45,13 +48,11 @@ SELECT * FROM CustomersVehicles WHERE customerID = :selectedCustomer;
 
 --Add new vehicle for customer
 INSERT INTO CustomersVehicles(carModelID, customerID, salesDate, lastServiceDate, vinNumber)
-VALUES((SELECT carModelID FROM Cars WHERE carModel = :carModelSelected AND carMake = :carMakeSelected AND carYear = :carYearSelected),
-(SELECT customerID FROM Customers WHERE firstName = :firstNameInput AND lastName = :lastNameInput AND phoneNumber = :phoneNumberInput)
-, :salesDateInput, :lastServiceDateInput, :vinNumberInput);
+VALUES(:carModelIDSelected, :customerIDSelected, :salesDateInput, :lastServiceDateInput, :vinNumberInput);
 
 --Update last service date of vehicle
 UPDATE CustomersVehicles
-SET lastServiceDate = :lastServiceDateInput
+SET lastServiceDate = :lastServiceDateInput, customerID = :customerIDSelected, salesDate = :salesDateInput;
 WHERE customerVehicleID = :customerVehicleIDSelected;
 
 --Delete customers vehicle
@@ -99,7 +100,7 @@ SELECT carModelID FROM CarsRecalls WHERE recallID = :recallIDSelected;
 
 --Create new recall and car relationship
 INSERT INTO CarsRecalls(recallID, carModelID)
-VALUES(:recallIDSelected, (SELECT carModelID FROM Cars WHERE carModel = :carModelSelected AND carMake = :carMakeSelected AND carYear = :carYearSelected);
+VALUES(:recallIDSelected, :carModelIDSelected);
 
 
 

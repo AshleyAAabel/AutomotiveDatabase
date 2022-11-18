@@ -62,7 +62,7 @@ CREATE TABLE Customers(
 CREATE TABLE CustomersVehicles(
 
         customerVehicleID int AUTO_INCREMENT NOT NULL,
-        customerID int NOT NULL,
+        customerID int,
         carModelID int NOT NULL,
         vinNumber varchar(255) NOT NULL,
         saleDate date NOT NULL,
@@ -125,13 +125,37 @@ INSERT INTO CarsRecalls(carModelID, recallID)
 VALUES
 ((SELECT carModelID FROM Cars WHERE carMake = 'Buick' AND carModel = 'Regal' AND carYear = '2019'), (SELECT recallID FROM Recalls WHERE recallType = 'Brakes Software' and dateIssued = '2022-07-18')),
 ((SELECT carModelID FROM Cars WHERE carMake = 'Mazda' AND carModel = 'Mazda3' AND carYear = '2017'), (SELECT recallID FROM Recalls WHERE recallType = 'Windshield Wipers' and dateIssued = '2019-04-03')),
-((SELECT carModelID FROM Cars WHERE carMake = 'Cadillac' AND carModel = 'CT6' AND carYear = '2018'), (SELECT recallID FROM Recalls WHERE recallType = 'Seatbelt' and dateIssued = '2019-09-26'));
+((SELECT carModelID FROM Cars WHERE carMake = 'Cadillac' AND carModel = 'CT6' AND carYear = '2018'), (SELECT recallID FROM Recalls WHERE recallType = 'Seatbelt' and dateIssued = '2019-09-26')),
+((SELECT carModelID FROM Cars WHERE carMake = 'Mazda' AND carModel = 'Mazda3' AND carYear = '2017'), (SELECT recallID FROM Recalls WHERE recallType = 'Brakes Software' and dateIssued = '2022-07-18'));
 
 INSERT INTO VehicleRecallStatus(customerVehicleID, recallID, recallStatus)
 VALUES
 ((SELECT customerVehicleID FROM CustomersVehicles WHERE vinNumber ='1LNHM86S32Y623854'), (SELECT recallID FROM Recalls WHERE recallType = 'Brakes Software' AND dateIssued = '2022-07-18'), 0),
 ((SELECT customerVehicleID FROM CustomersVehicles WHERE vinNumber = '5NPE34AF2FH047906'), (SELECT recallID FROM Recalls WHERE recallType = 'Windshield Wipers' and dateIssued = '2019-04-03'), 1),
-((SELECT customerVehicleID FROM CustomersVehicles WHERE vinNumber = '1FDZA90W1LVA48400'), (SELECT recallID FROM Recalls WHERE recallType = 'Seatbelt' AND dateIssued = '2019-09-26'), 1)
+((SELECT customerVehicleID FROM CustomersVehicles WHERE vinNumber = '1FDZA90W1LVA48400'), (SELECT recallID FROM Recalls WHERE recallType = 'Seatbelt' AND dateIssued = '2019-09-26'), 1),
+((SELECT customerVehicleID FROM CustomersVehicles WHERE vinNumber = '5NPE34AF2FH047906'), (SELECT recallID FROM Recalls WHERE recallType = 'Brakes Software' AND dateIssued = '2022-07-18'), 0);
 
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -35,11 +35,24 @@ def customers():
 
     if request.method == "POST":
         if request.form.get("addCustomer"):
+            query = "SELECT * FROM Customers;"
+            # cursor = db.execute_query(db_connection=db_connection, query=query)
+            cursor = mysql.connection.cursor()
+            cursor.execute(query)
+            results = cursor.fetchall()
+
+
             firstName = request.form["firstName"]
             lastName = request.form["lastName"]
             phoneNumber = request.form["phoneNumber"]
             email = request.form["email"]
-            if firstName != '' and lastName != '' and phoneNumber != '' and email != '':
+
+            if not firstName or not lastName or not phoneNumber or not email:
+                error = 'Please fill out all of the inputs to the form'
+
+            if error:
+                return render_template("customers.j2", customers=results, error = error)
+            else:
                 query = "INSERT INTO Customers (firstName, lastName, phoneNumber, email) VALUES (%s, %s, %s, %s);"
                 # cursor = db_connection.cursor()
                 cursor = mysql.connection.cursor()
@@ -54,10 +67,6 @@ def edit_customer(customerID):
 
     if request.method == "GET":
         query = "SELECT * FROM Customers WHERE customerID = %s" % (customerID)
-        # cur = db_connection.cursor()
-        # cur.execute(query)
-        # data = cur.fetchall()
-        # cursor = db.execute_query(db_connection=db_connection, query=query)
         cursor = mysql.connection.cursor()
         cursor.execute(query)
         data = cursor.fetchall()
@@ -91,10 +100,26 @@ def cars():
 
     if request.method == "POST":
         if request.form.get("addCar"):
+
+            query = "SELECT * FROM Cars;"
+            # cursor = db.execute_query(db_connection=db_connection, query=query)
+            cursor = mysql.connection.cursor()
+            cursor.execute(query)
+            results = cursor.fetchall()
+
             carMake = request.form["carMake"]
             carModel = request.form["carModel"]
             carYear = request.form["carYear"]
-            if carMake != '' and carModel != '' and carYear != '':
+            error = None
+
+            if not carMake or not carModel or not carYear:
+                error = 'Please fill out all inputs for the form'
+
+
+            if error:
+                return render_template("cars.j2", cars=results, error = error)
+
+            else:
                 query = "INSERT INTO Cars (carMake, carModel, carYear) VALUES (%s, %s, %s);"
                 # cursor = db_connection.cursor()
                 cursor = mysql.connection.cursor()
