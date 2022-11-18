@@ -1,5 +1,6 @@
 
-from flask import Flask, render_template, request, redirect, json
+from flask import Flask, render_template, request, redirect, json, flash
+from waitress import serve
 import os
 import database.db_connector as db
 import mysql.connector
@@ -8,6 +9,7 @@ from flask_mysqldb import MySQL
 # Configuration
 
 app = Flask(__name__)
+app.secret_key = "secret key"
 
 # db_connection = db.connect_to_database()
 app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
@@ -132,13 +134,16 @@ def cars():
 @app.route('/delete_cars/<int:carModelID>')
 def delete_cars(carModelID):
 
-    query = "DELETE FROM Cars WHERE carModelID = '%s';"
-    # cursor = db_connection.cursor()
-    cursor = mysql.connection.cursor()
-    cursor.execute(query, (carModelID,))
-    # db_connection.commit()
-    mysql.connection.commit()
-
+    try:
+        query = "DELETE FROM Cars WHERE carModelID = '%s';"
+        # cursor = db_connection.cursor()
+        cursor = mysql.connection.cursor()
+        cursor.execute(query, (carModelID,))
+        # db_connection.commit()
+        mysql.connection.commit()
+    except:
+        flash("Cannot delete car owned by Customer")
+        return render_template("flash_temp.j2")
     return redirect("/cars")
 
 @app.route('/recalls', methods=["POST", "GET"])
@@ -238,6 +243,121 @@ def delete_customers_vehicle(customerVehicleID):
     mysql.connection.commit()
 
     return redirect("/customers_vehicles")
+
+@app.route('/cars_recalls', methods=["POST", "GET"])
+def cars_recalls():
+
+    if request.method == "GET":
+        
+        cars_query = "SELECT * FROM Cars ORDER BY Cars.carMake;"
+        cars_cursor = mysql.connection.cursor()
+        cars_cursor.execute(cars_query)
+        cars_results = cars_cursor.fetchall()
+
+        recalls_query = "SELECT * FROM Recalls ORDER BY Recalls.dateIssued"
+        recalls_cursor = mysql.connection.cursor()
+        recalls_cursor.execute(recalls_query)
+        recalls_results = recalls_cursor.fetchall()
+
+        query = "SELECT Cars.carMake, Cars.carModel, Cars.carYear, Recalls.recallType, Recalls.dateIssued, CarsRecalls.carModelID, CarsRecalls.recallID FROM CarsRecalls INNER JOIN Cars ON CarsRecalls.carModelID = Cars.carModelID INNER JOIN Recalls ON CarsRecalls.recallID =Recalls.recallID;"
+        cursor = mysql.connection.cursor()
+        cursor.execute(query)
+        results = cursor.fetchall()
+
+        return render_template("cars_recalls.j2", carsRecalls=results, cars=cars_results, recalls=recalls_results)
+
+
+
+    if request.method == "POST":
+        if request.form.get("addCarRecall"):
+            carModelID = request.form["carModelID"]
+            recallID = request.form["recallID"]
+            query = "INSERT INTO CarsRecalls (carModelID, recallID) VALUES (%s, %s)"
+            """vrsquery = "INSERT INTO VehicleRecallStatus (customerVehicleID, recallID) SELECT CustomersVehicles.customerVehicleID, Recalls.recallID FROM CustomersVehicles INNER JOIN Cars ON CustomersVehicles.carModelID = Cars.carModelID INNER JOIN CarsRecalls ON Cars.carModelID = CarsRecalls.carModelID INNER JOIN Recalls ON CarsRecalls.recallID = Recalls.recallID WHERE Cars.carModelID = %s AND Recalls.recallID = %s"
+            vrscursor = mysql.connection.cursor()
+            vrscursor.execute(vrsquery,(carModelID, recallID,))"""
+            cursor = mysql.connection.cursor()
+            cursor.execute(query, (carModelID, recallID,))
+            mysql.connection.commit()
+        return redirect("/cars_recalls")
+
+@app.route('/view_cars_recalls/<carModelID>')
+def view_cars_recalls(carModelID):
+
+    query = "SELECT Cars.carMake, Cars.carModel, Cars.carYear, Recalls.recallType, Recalls.dateIssued, CarsRecalls.carModelID, CarsRecalls.recallID FROM CarsRecalls INNER JOIN Cars ON CarsRecalls.carModelID=Cars.carModelID INNER JOIN Recalls ON CarsRecalls.recallID=Recalls.recallID WHERE CarsRecalls.carModelID = %s;"
+    cursor = mysql.connection.cursor()
+    cursor.execute(query, (carModelID))
+    results = cursor.fetchall()
+
+    return render_template("view_cars_recalls.j2", viewRecalls=results)
+
+@app.route('/view_recalls_cars/<recallID>')
+def view_recalls_cars(recallID):
+
+    query = "SELECT Cars.carMake, Cars.carModel, Cars.carYear, Recalls.recallType, Recalls.dateIssued, CarsRecalls.carModelID, CarsRecalls.recallID FROM CarsRecalls INNER JOIN Cars ON CarsRecalls.carModelID=Cars.carModelID INNER JOIN Recalls ON CarsRecalls.recallID=Recalls.recallID WHERE CarsRecalls.recallID = %s;"
+    cursor = mysql.connection.cursor()
+    cursor.execute(query, (recallID))
+    results = cursor.fetchall()
+
+    return render_template("view_cars_recalls.j2", viewRecalls=results)
+
+@app.route('/vehicle_recall_status', methods=["POST", "GET"])
+def vehicle_recall_status():
+
+    if request.method == "GET":
+
+        cars_query = "SELECT * FROM CustomersVehicles ORDER BY CustomersVehicles.vinNumber;"
+        cars_cursor = mysql.connection.cursor()
+        cars_cursor.execute(cars_query)
+        cars_results = cars_cursor.fetchall()
+
+        recalls_query = "SELECT * FROM Recalls ORDER BY Recalls.dateIssued;"
+        recalls_cursor = mysql.connection.cursor()
+        recalls_cursor.execute(recalls_query)
+        recalls_results = recalls_cursor.fetchall()
+
+        query = "SELECT CustomersVehicles.vinNumber, Recalls.recallType, Recalls.dateIssued, VehicleRecallStatus.customerVehicleID, VehicleRecallStatus.recallID, VehicleRecallStatus.recallStatus FROM VehicleRecallStatus INNER JOIN CustomersVehicles ON VehicleRecallStatus.customerVehicleID=CustomersVehicles.customerVehicleID INNER JOIN Recalls ON VehicleRecallStatus.recallID = Recalls.recallID;"
+        cursor = mysql.connection.cursor()
+        cursor.execute(query)
+        results = cursor.fetchall()
+        return render_template("vehicle_recall_status.j2", recallStats=results, cars=cars_results, recalls=recalls_results)
+    
+    if request.method == "POST":
+        if request.form.get("addCustomerRecall"):
+            customerVehicleID = request.form["customerVehicleID"]
+            recallID = request.form["recallID"]
+            recallStatus = int(request.form["recallStatus"])
+            query = "INSERT INTO VehicleRecallStatus VALUES (%s, %s, %s)"
+            cursor = mysql.connection.cursor()
+            cursor.execute(query, (customerVehicleID, recallID, recallStatus))
+            mysql.connection.commit()
+        return redirect("/vehicle_recall_status")
+
+@app.route('/update_vehicle_recall_status/<customerVehicleID>/<recallID>', methods=["POST", "GET"])
+def update_vehicle_recall_status(customerVehicleID, recallID):
+    if request.method == "GET":
+        query = "SELECT VehicleRecallStatus.customerVehicleID, VehicleRecallStatus.recallID, VehicleRecallStatus.recallStatus FROM VehicleRecallStatus INNER JOIN CustomersVehicles ON VehicleRecallStatus.customerVehicleID=CustomersVehicles.customerVehicleID INNER JOIN Recalls ON VehicleRecallStatus.recallID = Recalls.recallID WHERE VehicleRecallStatus.customerVehicleID = %s AND VehicleRecallStatus.recallID = %s;"
+        # cursor = db.execute_query(db_connection=db_connection, query=query)
+        cursor = mysql.connection.cursor()
+        cursor.execute(query, (customerVehicleID, recallID))
+        results = cursor.fetchall()
+        return render_template("update_vehicle_recall_status.j2")
+
+    if request.method == "POST":
+        if request.form.get("updateVehcleRecallStatus"):
+            recallStatus = request.form["statusUpdate"]
+            query = "UPDATE VehicleRecallStatus SET VehicleRecallStatus.recallStatus = %s WHERE VehicleRecallStatus.customerVehicleID = %s;"
+            # cursor = db_connection.cursor()
+            cursor = mysql.connection.cursor()
+            cursor.execute(query, (recallStatus, customerVehicleID, recallID))
+            # db_connection.commit()
+            mysql.connection.commit()
+        # if request.form.get("cancelEditCustomersVehicle"):
+        #     return redirect("/customers_vehicles")
+        return redirect("/vehicle_recall_status")
+
+
+
 
 # Listener
 

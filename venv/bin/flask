@@ -1,4 +1,4 @@
-#!/nfs/stak/users/arringtd/public_html/cs340_project/venv/bin/python3
+.venv\scripts\activate#!/nfs/stak/users/arringtd/public_html/cs340_project/venv/bin/python3
 
 # -*- coding: utf-8 -*-
 import re
