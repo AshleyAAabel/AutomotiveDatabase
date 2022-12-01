@@ -344,12 +344,12 @@ def update_vehicle_recall_status(customerVehicleID, recallID):
         return render_template("update_vehicle_recall_status.j2")
 
     if request.method == "POST":
-        if request.form.get("updateVehcleRecallStatus"):
-            recallStatus = request.form["statusUpdate"]
+        if request.form.get("updateVehicleRecallStatus"):
+            recallStatus = request.form["recallStatus"]
             query = "UPDATE VehicleRecallStatus SET VehicleRecallStatus.recallStatus = %s WHERE VehicleRecallStatus.customerVehicleID = %s;"
             # cursor = db_connection.cursor()
             cursor = mysql.connection.cursor()
-            cursor.execute(query, (recallStatus, customerVehicleID, recallID))
+            cursor.execute(query, (recallStatus, customerVehicleID))
             # db_connection.commit()
             mysql.connection.commit()
         # if request.form.get("cancelEditCustomersVehicle"):
