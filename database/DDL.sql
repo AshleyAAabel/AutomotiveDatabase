@@ -63,7 +63,7 @@ CREATE TABLE Customers(
 CREATE TABLE CustomersVehicles(
 
         customerVehicleID int AUTO_INCREMENT NOT NULL,
-        customerID int NOT NULL,
+        customerID int,
         carModelID int NOT NULL,
         vinNumber varchar(255) NOT NULL,
         saleDate date NOT NULL,

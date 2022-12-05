@@ -48,7 +48,7 @@ def customers():
             lastName = request.form["lastName"]
             phoneNumber = request.form["phoneNumber"]
             email = request.form["email"]
-
+            error = None
             if not firstName or not lastName or not phoneNumber or not email:
                 error = 'Please fill out all of the inputs to the form'
 
