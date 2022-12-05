@@ -19,6 +19,7 @@
         <th>Last Service Date</th>
         <th></th>
         <th></th>
+        <th></th>
 
     </tr>
     <tbody>
@@ -34,7 +35,8 @@
         <td>{{customersVehicle['saleDate']}}</td>
         <td>{{customersVehicle['lastServiceDate']}}</td>
         <td><a href="delete_customers_vehicle/{{customersVehicle.customerVehicleID}}">Delete</a></td>
-        <td><a href="edit_customers_vehicle/{{customersVehicle.customerVehicleID}}">Edit</a></td>
+        <td><a href="edit_customers_vehicle/{{customersVehicle.customerVehicleID}}">Update Service Date</a></td>
+        <td><a href="edit_customers_vehicle_customer/{{customersVehicle.customerVehicleID}}">Edit Customer</a></td>
     </tr>
     {% endfor %}
     </table>
@@ -61,6 +63,14 @@
             </fieldset>
             <input class="btn" type="submit" id="addCustomersVehicle" name="addCustomersVehicle" value="Add a Customer's Vehicle">
     </form> <!--add new customer-->
+    <p></p>
+    <form method="post" id="findVin" action ="/customers_vehicles">
+        <legend><strong>Find Customer's Vehicle by Vin Number</strong></legend>
+            <fieldset class="fields">
+                <label> Vin Number </label> <input type="text" name="vinNumber">
+            </fieldset>
+            <input class="btn" type="submit" id="findVin" name="findVin" value="Find a Vin">
+    </form> <!--find car by Vin-->
 
 
 </body>

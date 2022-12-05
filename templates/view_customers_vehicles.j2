@@ -10,8 +10,8 @@
     <table border="1" cellpadding="5">
     <thead>
     <tr>
-        <th></th>
-        <th></th>
+
+        
         <th>Car Make</th>
         <th>Car Model</th>
         <th>Model Year</th>
@@ -23,14 +23,13 @@
     <tbody>
     {% for customersVehicle in customersVehicles %}
     <tr>
-        <td><a href="delete_customers_vehicle/{{customersVehicle.customerVehicleID}}">Delete</a></td>
-        <td><a href="edit_customers_vehicle/{{customersVehicle.customerVehicleID}}">Edit</a></td>
         <td>{{customersVehicle['carMake']}}</td>
         <td>{{customersVehicle['carModel']}}</td>
         <td>{{customersVehicle['carYear']}}</td>
         <td>{{customersVehicle['vinNumber']}}</td>
         <td>{{customersVehicle['saleDate']}}</td>
         <td>{{customersVehicle['lastServiceDate']}}</td>
+
     </tr>
     {% endfor %}
     </table>
