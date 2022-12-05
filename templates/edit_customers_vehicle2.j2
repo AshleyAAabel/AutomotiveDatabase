@@ -1,0 +1,30 @@
+<html>
+<head>
+    <title>Edit Customer's Vehicle</title>
+</head>
+<body>
+    <h1>Edit Customer's Vehicle</h1>
+    [ <a href="/">Home</a> |  <a href="/cars">Cars</a> | <a href="/recalls">Recalls</a> | <a href="/cars_recalls">Cars and Recalls<a/> | <a href="/customers">Customers</a> | <a href="/customers_vehicles">Customers' Vehicles</a> | <a href="/vehicle_recall_status">Vehicle Recall Status</a>]
+
+    <p></p>
+    
+    <form method="post" id="editCustomersVehicle">
+        <legend><strong>Edit Customer's Vehicle</strong></legend>
+            <fieldset class="fields">
+                <label for "customerInfo"> Customer </label> 
+                    <select name="customerID" id="customerID">
+                        <option value="">None</option>
+                        {% for customer in customers %}
+                        <option value="{{customer['customerID']}}">{{customer['firstName']}} {{customer['lastName']}} {{customer['phoneNumber']}}</option>
+                        {% endfor %}
+                        
+                    </select>
+
+            </fieldset>
+            <input class="btn" type="submit" id="editCustomersVehicle" name="editCustomersVehicle" value="Edit Customer's Vehicle">
+            <input class="btn" type="submit" id="cancelEditCustomersVehicle" name="cancelEditCustomersVehicle" value="cancel">
+    </form> <!--Edit customer's vehicle-->
+
+    
+</body>
+</html>

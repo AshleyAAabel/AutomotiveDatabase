@@ -1,6 +1,5 @@
 
-from flask import Flask, render_template, request, redirect, json, flash
-# from waitress import serve
+from flask import Flask, render_template, request, redirect, json, flash, url_for
 import os
 import database.db_connector as db
 import mysql.connector
@@ -61,8 +60,37 @@ def customers():
                 cursor.execute(query, (firstName, lastName, phoneNumber, email,))
                 # db_connection.commit()
                 mysql.connection.commit()
+            return redirect("/customers")
 
-        return redirect("/customers")
+        if request.form.get("findCustomer"):
+            lastName = request.form["lastName"]
+            return redirect(url_for('find_customer', lastName = lastName))
+    
+
+@app.route('/view_customers_vehicles/<customerID>')
+def view_customers_vehicles(customerID):
+
+    query1 = "SELECT firstName, lastName FROM Customers  WHERE customerID = %s;"
+    cursor1 = mysql.connection.cursor()
+    cursor1.execute(query1, (customerID))
+    results1 = cursor1.fetchall()
+
+    query = "SELECT * FROM CustomersVehicles INNER JOIN Customers ON CustomersVehicles.customerID = Customers.customerID INNER JOIN Cars ON CustomersVehicles.carModelID = Cars.carModelID WHERE CustomersVehicles.customerID = %s;;"
+    cursor = mysql.connection.cursor()
+    cursor.execute(query, (customerID))
+    results = cursor.fetchall()
+
+    return render_template("view_customers_vehicles.j2", customersVehicles=results, customer = results1)        
+    
+@app.route('/find_customer/<lastName>', methods=["GET"])
+def find_customer(lastName):
+
+    query = "SELECT * FROM Customers WHERE Customers.lastName = '%s'" % (lastName)
+    cursor = mysql.connection.cursor()
+    cursor.execute(query)
+    data = cursor.fetchall()
+    return render_template("find_customer.j2", customers=data, last = lastName)
+
 
 @app.route('/edit_customer/<int:customerID>', methods=["POST", "GET"])
 def edit_customer(customerID):
@@ -184,7 +212,7 @@ def customers_vehicles():
         cars_cursor.execute(cars_query)
         cars_results = cars_cursor.fetchall()
 
-        query = "SELECT CustomersVehicles.customerVehicleID, CustomersVehicles.vinNumber, CustomersVehicles.saleDate, CustomersVehicles.lastServiceDate, Customers.firstName, Customers.lastName, Customers.phoneNumber, Cars.carMake, Cars.carModel, Cars.carYear FROM CustomersVehicles INNER JOIN Customers ON CustomersVehicles.customerID = Customers.customerID INNER JOIN Cars ON CustomersVehicles.carModelID = Cars.carModelID;"
+        query = "SELECT CustomersVehicles.customerVehicleID, CustomersVehicles.vinNumber, CustomersVehicles.saleDate, CustomersVehicles.lastServiceDate, Customers.firstName, Customers.lastName, Customers.phoneNumber, Cars.carMake, Cars.carModel, Cars.carYear FROM CustomersVehicles LEFT JOIN Customers ON CustomersVehicles.customerID = Customers.customerID LEFT JOIN Cars ON CustomersVehicles.carModelID = Cars.carModelID;"
         cursor = mysql.connection.cursor()
         cursor.execute(query)
         results = cursor.fetchall()
@@ -206,11 +234,26 @@ def customers_vehicles():
                 cursor.execute(query, (customerID, carModelID, vinNumber, saleDate, lastServiceDate,))
                 # db_connection.commit()
                 mysql.connection.commit()
-        return redirect("/customers_vehicles")
+            
+            return redirect("/customers_vehicles")
+        
+        if request.form.get("findVin"):
+            vin = request.form["vinNumber"]
+            return redirect(url_for('find_vin', vinNumber = vin))
+
+@app.route('/find_vin/<vinNumber>', methods=["GET"])
+def find_vin(vinNumber):
+
+    query = "SELECT CustomersVehicles.customerVehicleID, CustomersVehicles.vinNumber, CustomersVehicles.saleDate, CustomersVehicles.lastServiceDate, Customers.firstName, Customers.lastName, Customers.phoneNumber, Cars.carMake, Cars.carModel, Cars.carYear FROM CustomersVehicles LEFT JOIN Customers ON CustomersVehicles.customerID = Customers.customerID LEFT JOIN Cars ON CustomersVehicles.carModelID = Cars.carModelID WHERE CustomersVehicles.vinNumber = '%s'" % (vinNumber)
+    cursor = mysql.connection.cursor()
+    cursor.execute(query)
+    data = cursor.fetchall()
+    return render_template("find_vin.j2", customersVehicles=data)
 
 @app.route('/edit_customers_vehicle/<int:customerVehicleID>', methods=["POST", "GET"])
 def edit_customers_vehicles(customerVehicleID):
     if request.method == "GET":
+
         query = "SELECT * FROM CustomersVehicles WHERE customerVehicleID = %s;" % (customerVehicleID)
         # cursor = db.execute_query(db_connection=db_connection, query=query)
         cursor = mysql.connection.cursor()
@@ -222,11 +265,47 @@ def edit_customers_vehicles(customerVehicleID):
         if request.form.get("editCustomersVehicle"):
             lastServiceDate = request.form["lastServiceDate"]
             if lastServiceDate != '':
-                query = "UPDATE CustomersVehicles SET CustomersVehicles.lastServiceDate = %s WHERE CustomersVehicles.customerVehicleID = %s;"
+                query = "UPDATE CustomersVehicles SET CustomersVehicles.lastServiceDate = %s  WHERE CustomersVehicles.customerVehicleID = %s"
                 # cursor = db_connection.cursor()
                 cursor = mysql.connection.cursor()
                 cursor.execute(query, (lastServiceDate, customerVehicleID,))
                 # db_connection.commit()
+                mysql.connection.commit()
+        # if request.form.get("cancelEditCustomersVehicle"):
+        #     return redirect("/customers_vehicles")
+        return redirect("/customers_vehicles")
+
+@app.route('/edit_customers_vehicle_customer/<customerVehicleID>', methods=["POST", "GET"])
+def edit_customers_vehicles2(customerVehicleID):
+    if request.method == "GET":
+       
+        customers_query = "SELECT * FROM Customers ORDER BY Customers.firstName;"
+        customers_cursor = mysql.connection.cursor()
+        customers_cursor.execute(customers_query)
+        customers_results = customers_cursor.fetchall()
+
+       
+        query = "SELECT * FROM CustomersVehicles WHERE customerVehicleID = %s;" % (customerVehicleID)
+        # cursor = db.execute_query(db_connection=db_connection, query=query)
+        cursor = mysql.connection.cursor()
+        cursor.execute(query)
+        results = cursor.fetchall()
+        return render_template("edit_customers_vehicle2.j2", customersVehicle=results, customers = customers_results)
+
+    if request.method == "POST":
+        if request.form.get("editCustomersVehicle"):
+            customerID = request.form["customerID"]
+            if customerID != "":
+                query = "UPDATE CustomersVehicles SET CustomersVehicles.customerID = %s  WHERE CustomersVehicles.customerVehicleID = %s;"
+            # cursor = db_connection.cursor()
+                cursor = mysql.connection.cursor()
+                cursor.execute(query, (customerID, customerVehicleID,))
+            # db_connection.commit()
+                mysql.connection.commit()
+            if customerID == "":
+                query = "UPDATE CustomersVehicles SET CustomersVehicles.customerID = NULL WHERE CustomersVehicles.customerVehicleID = %s;" % (customerVehicleID)
+                cursor = mysql.connection.cursor()
+                cursor.execute(query)
                 mysql.connection.commit()
         # if request.form.get("cancelEditCustomersVehicle"):
         #     return redirect("/customers_vehicles")
@@ -346,7 +425,7 @@ def update_vehicle_recall_status(customerVehicleID, recallID):
     if request.method == "POST":
         if request.form.get("updateVehicleRecallStatus"):
             recallStatus = request.form["recallStatus"]
-            query = "UPDATE VehicleRecallStatus SET VehicleRecallStatus.recallStatus = %s WHERE VehicleRecallStatus.customerVehicleID = %s;"
+            query = "UPDATE VehicleRecallStatus SET VehicleRecallStatus.recallStatus = %s WHERE VehicleRecallStatus.customerVehicleID = %s AND VehicleRecallStatus.recallID = %s;"
             # cursor = db_connection.cursor()
             cursor = mysql.connection.cursor()
             cursor.execute(query, (recallStatus, customerVehicleID))
