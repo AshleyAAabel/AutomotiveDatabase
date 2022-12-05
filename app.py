@@ -412,6 +412,7 @@ def vehicle_recall_status():
             mysql.connection.commit()
         return redirect("/vehicle_recall_status")
 
+
 @app.route('/update_vehicle_recall_status/<customerVehicleID>/<recallID>', methods=["POST", "GET"])
 def update_vehicle_recall_status(customerVehicleID, recallID):
     if request.method == "GET":
@@ -425,7 +426,7 @@ def update_vehicle_recall_status(customerVehicleID, recallID):
     if request.method == "POST":
         if request.form.get("updateVehicleRecallStatus"):
             recallStatus = request.form["recallStatus"]
-            query = "UPDATE VehicleRecallStatus SET VehicleRecallStatus.recallStatus = %s WHERE VehicleRecallStatus.customerVehicleID = %s AND VehicleRecallStatus.recallID = %s;"
+            query = "UPDATE VehicleRecallStatus SET VehicleRecallStatus.recallStatus = %s WHERE VehicleRecallStatus.customerVehicleID = %s;"
             # cursor = db_connection.cursor()
             cursor = mysql.connection.cursor()
             cursor.execute(query, (recallStatus, customerVehicleID))
