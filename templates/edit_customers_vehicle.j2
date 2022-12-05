@@ -12,6 +12,14 @@
         <legend><strong>Edit Customer's Vehicle</strong></legend>
             <fieldset class="fields">
                 <label> Last Service Date </label> <input type="text" name="lastServiceDate" value={{customersVehicle[0]['lastServiceDate']}}>
+                <label for "customerInfo"> Customer </label> 
+                    <select name="customerID" id="customerID">
+                        <option value=None>None</option>
+                        {% for customer in customers %}
+                        <option value="{{customer['customerID']}}">{{customer['firstName']}} {{customer['lastName']}} {{customer['phoneNumber']}}</option>
+                        {% endfor %}
+                        
+                    </select>
 
             </fieldset>
             <input class="btn" type="submit" id="editCustomersVehicle" name="editCustomersVehicle" value="Edit Customer's Vehicle">

@@ -8,21 +8,22 @@
     <table border="1" cellpadding="5">
     <thead>
     <tr>
-        <th></th>
         <th>ID</th>
         <th>Car Make</th>
         <th>Car Model</th>
         <th>Model Year</th>
+        <th></th>
+        <th></th>
     </tr>
     <tbody>
     {% for car in cars %}
     <tr>
-        <td><a href="delete_cars/{{car.carModelID}}">Delete</a></td>
         <td>{{car['carModelID']}}</td>
         <td>{{car['carMake']}}</td>
         <td>{{car['carModel']}}</td>
         <td>{{car['carYear']}}</td>
         <td><a href="view_cars_recalls/{{car.carModelID}}">View all recalls</a></td>
+        <td><a href="delete_cars/{{car.carModelID}}">Delete</a></td>
     </tr>
     {% endfor %}
     </table>

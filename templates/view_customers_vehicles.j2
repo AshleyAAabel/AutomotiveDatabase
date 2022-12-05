@@ -1,0 +1,39 @@
+<html>
+<head>
+    <title>Customer Vehicles</title>
+</head>
+<body>
+    {% for custom in customer %}
+    <h1>{{custom['firstName']}} {{custom['lastName']}}'s Vehicles</h1>
+    {% endfor %}
+    [ <a href="/">Home</a> |  <a href="/cars">Cars</a> | <a href="/recalls">Recalls</a> | <a href="/cars_recalls">Cars and Recalls<a/> | <a href="/customers">Customers</a> | <a href="/customers_vehicles">Customers' Vehicles</a> | <a href="/vehicle_recall_status">Vehicle Recall Status</a>]
+    <table border="1" cellpadding="5">
+    <thead>
+    <tr>
+        <th></th>
+        <th></th>
+        <th>Car Make</th>
+        <th>Car Model</th>
+        <th>Model Year</th>
+        <th>VIN</th>
+        <th>Sale Date</th>
+        <th>Last Service Date</th>
+
+    </tr>
+    <tbody>
+    {% for customersVehicle in customersVehicles %}
+    <tr>
+        <td><a href="delete_customers_vehicle/{{customersVehicle.customerVehicleID}}">Delete</a></td>
+        <td><a href="edit_customers_vehicle/{{customersVehicle.customerVehicleID}}">Edit</a></td>
+        <td>{{customersVehicle['carMake']}}</td>
+        <td>{{customersVehicle['carModel']}}</td>
+        <td>{{customersVehicle['carYear']}}</td>
+        <td>{{customersVehicle['vinNumber']}}</td>
+        <td>{{customersVehicle['saleDate']}}</td>
+        <td>{{customersVehicle['lastServiceDate']}}</td>
+    </tr>
+    {% endfor %}
+    </table>
+
+</body>
+</html>
