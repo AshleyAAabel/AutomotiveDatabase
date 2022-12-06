@@ -6,6 +6,7 @@ import mysql.connector
 from flask_mysqldb import MySQL
 
 # Configuration
+# Credit: Used Flask Starter App and followed the format throughout the project
 
 app = Flask(__name__)
 app.secret_key = "secret key"
